@@ -2,9 +2,10 @@ const express = require("express");
 const path = require("path");
 const { open } = require("sqlite");
 const sqlite3 = require("sqlite3");
+
 const app = express();
 app.use(express.json());
-const dbPath = path.join(__sirname, "cricketTeam.db");
+const dbPath = path.join(__dirname, "cricketTeam.db");
 let db = null;
 const initializeDBAndServer = async () => {
   try {
@@ -21,14 +22,7 @@ const initializeDBAndServer = async () => {
   }
 };
 initializeDBAndServer();
-const convertDbObjectToResponseObject = (dbObject) => {
-  return {
-    playerId: dbObject.player_id,
-    playerName: dbObject.player_name,
-    jerseyNumber: dbObject.jersey_number,
-    role: dbObject.role,
-  };
-};
+module.exports = app;
 //API 1 Get the list of all players
 
 app.get("/players/", async (request, response) => {
